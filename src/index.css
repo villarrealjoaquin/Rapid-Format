@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+}
+
+@keyframes color-wave {
+  0% {
+    color: #8B5CF6;
+  }
+  50% {
+    color: #9333EA; 
+  }
+  100% {
+    color: #8B5CF6; 
+  }
+}
+
+.animate-color-wave {
+  animation: color-wave linear 2s infinite;
+}
+
+.animated {
+  animation: appear 0.5s ease-out;
+}
+
+@keyframes appear {
+  from {
+    transform: translateY(6px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
