@@ -1,16 +1,16 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ObjectType = Record<string, any>;
+import { ObjectType, Values } from "@/types/convert.types";
 
 export const serializator = (query: string) => {
   const trimmedQuery = query.trim();
   const cleanedQuery = trimmedQuery.replace(/\s+/g, ' ');
   const commaRemovedQuery = cleanedQuery.replace(/,\s*}/g, '}');
-  return commaRemovedQuery.replace(/(\w+):/g, '"$1":');
+  const result = commaRemovedQuery.replace(/(\w+):/g, '"$1":');
+  return result;
 }
 
 export const convertToJson = (query: string) => {
-  const replace = query.replace(/'/g, '"');
-  const convert = JSON.parse(serializator(replace));
+  if (!query) return "{}";
+  const convert = JSON.parse(serializator(query.replace(/'/g, '"').replace(';', ' ')));
   return JSON.stringify(convert, null, 2);
 }
 
@@ -36,7 +36,7 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
 }
 
 export const convertToInterface = (query: string): string => {
-  const jsonObject: ObjectType = JSON.parse(serializator(query));
+  const jsonObject: ObjectType = JSON.parse(serializator(query.replace(';', ' ')));
   const copyJson = structuredClone(jsonObject);
   const interfaceString = `interface MyInterface ${formatObjectForInterface(copyJson)}\n}`;
   return interfaceString.replace(/,/g, ';');
@@ -50,10 +50,10 @@ export const formatObjectForInterface = (obj: ObjectType, depth = 1): string => 
       const formattedKey = key.includes(' ') ? `"${key}"` : key;
       return `${spaces}${formattedKey}: ${type};`;
     })
-    .join('\n')}\n${spaces}}`;
+    .join('\n')}${spaces}`;
 }
 
-export function getTypeString(value: string | number | boolean | ObjectType, depth: number): string {
+export function getTypeString(value: Values, depth: number): string {
   const typeMapping: Record<string, (value: ObjectType) => string> = {
     string: () => "string",
     number: () => "number",
@@ -61,11 +61,11 @@ export function getTypeString(value: string | number | boolean | ObjectType, dep
     object: (value) => {
       if (Array.isArray(value)) {
         return `${getTypeString(value[0], depth)}[]`;
-      } else if (typeof value === 'function') {
-        return "string";
-      } else {
-        return formatObjectForInterface(value, depth);
       }
+      if (typeof value === 'function') {
+        return "string";
+      }
+      return formatObjectForInterface(value, depth);
     },
   };
   return typeMapping[typeof value](value as ObjectType);

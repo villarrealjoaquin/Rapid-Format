@@ -5,6 +5,7 @@ import {
   Converter,
   CopyText,
   ErrorMessage,
+  Footer,
   Formats,
   Header
 } from "./components";
@@ -30,13 +31,14 @@ function App() {
       const conversionFunction = conversionMap[conversionKey];
       if (conversionFunction) setOutput(conversionFunction());
     } catch (error) {
-      console.log(error);
       if (error instanceof SyntaxError) {
         setError("Error de sintaxis");
-      } else {
-        setError("Error al convertir los datos");
       }
     }
+  }
+
+  const handleDeleteOutput = () => {
+    setOutput("");
   }
 
   const handleQueryChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,7 +75,7 @@ function App() {
                 readonly={true}
                 value={output}
               />
-              <CopyText text={output} />
+              <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
 
             <Formats onValueChange={setToFormat} />
@@ -88,6 +90,7 @@ function App() {
 
         <ErrorMessage error={error} />
       </main>
+      <Footer />
     </>
   );
 }
