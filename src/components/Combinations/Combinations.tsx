@@ -9,12 +9,12 @@ import { Button } from "../ui/button";
 
 export default function Combinations() {
   return (
-    <div className="flex flex-col gap-3 w-[180px] justify-center items-center">
+    <div className="flex flex-col gap-3 w-[180px] justify-center items-center ">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">Combinaciones</Button>
+          <Button variant="outline" className="bg-[#09090B] border-[#09090B]">Conversiones</Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] p-4">
+        <DialogContent className="sm:max-w-[425px] p-4 bg-[#09090B] border-[#09090B]">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold text-purple-600">
               Conversiones Disponibles

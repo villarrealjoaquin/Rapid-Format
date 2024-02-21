@@ -12,8 +12,8 @@ import {
 import { convertToInterface, convertToJson, convertToObj } from "./utils/formattingUtils";
 
 function App() {
-  const [fromFormat, setFromFormat] = useState("Object");
-  const [toFormat, setToFormat] = useState("JSON");
+  const [fromFormat, setFromFormat] = useState("");
+  const [toFormat, setToFormat] = useState("");
   const [query, setQuery] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
@@ -54,17 +54,18 @@ function App() {
 
   return (
     <>
+      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(135%_145%_at_50%_30%,#000_40%,#63e_100%)]"></div>
       <Header />
       <main className="w-full flex flex-col items-center">
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <article className="flex flex-col gap-3">
             <Converter
               onQueryChange={handleQueryChange}
+              placeholder="Copia tu formato..."
               value={query}
             />
             <Formats onValueChange={setFromFormat} />
           </article>
-
           <Combinations />
 
           <article className="flex flex-col gap-3">
@@ -89,8 +90,10 @@ function App() {
         />
 
         <ErrorMessage error={error} />
+
       </main>
       <Footer />
+
     </>
   );
 }

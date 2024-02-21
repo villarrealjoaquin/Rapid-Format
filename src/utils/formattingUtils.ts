@@ -48,7 +48,7 @@ export const formatObjectForInterface = (obj: ObjectType, depth = 1): string => 
     .map(([key, value]) => {
       const type = getTypeString(value, depth + 1);
       const formattedKey = key.includes(' ') ? `"${key}"` : key;
-      return `${spaces}${formattedKey}: ${type};`;
+      return `${spaces}${formattedKey}: ${type}`;
     })
     .join('\n')}${spaces}`;
 }

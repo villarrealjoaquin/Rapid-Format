@@ -3,6 +3,7 @@ import { CopiedIcon, Copy } from "../icons/icons";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Trash } from "lucide-react";
 import { Button } from "../ui/button";
+import clsx from "clsx";
 
 export default function CopyText({ text, onDeleteOutput }: { text: string, onDeleteOutput: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -17,21 +18,21 @@ export default function CopyText({ text, onDeleteOutput }: { text: string, onDel
   return (
     <>
       <CopyToClipboard text={text}>
-        <div className="flex absolute bottom-2 right-2 gap-3">
-          <Button className="flex items-center bg-red-500 hover:bg-red-500/90 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed "
+        <div className="flex absolute bottom-2 right-6 gap-3">
+          <Button className="flex items-center bg-red-500 hover:bg-red-500/90 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={onDeleteOutput}
             disabled={!text}
           >
             <Trash className="w-5 h-5" />
           </Button>
-          <button
-            className="flex px-3 items-center justify-center bottom-2 right-2 gap-3 py-1 bg-[#8a5cf676] hover:bg-[#8a5cf676]/90 hover:scale-105 text-white rounded transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#8a5cf676]/90 disabled:hover:scale-100 disabled:hover:cursor-not-allowed"
+          <Button
+            className={clsx(`flex px-3 items-center justify-center bottom-2 right-2 gap-3 py-1 bg-[#3a1d7ed2] text-white rounded transition-all duration-300`, !text ? 'opacity-50 cursor-not-allowed' : 'hover:bg-purple-700)')}
             onAnimationEnd={() => setCopied(false)}
-            disabled={copied}
+            disabled={!text}
             onClick={handleCopyClick}
           >
             {copied ? 'Copiado' : 'Copiar'} {copied ? <CopiedIcon /> : <Copy />}
-          </button>
+          </Button>
         </div>
       </CopyToClipboard>
     </>

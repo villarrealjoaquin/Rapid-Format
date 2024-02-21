@@ -13,10 +13,10 @@ export default function Formats({ onValueChange }: { onValueChange: (value: stri
       <Select
         onValueChange={onValueChange}
       >
-        <SelectTrigger className="w-[180px]">
+        <SelectTrigger className="w-[180px] bg-[#09090B] border-[#09090B]">
           <SelectValue placeholder="Selecciona el formato" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-[#09090B] text-white">
           <SelectGroup>
             <SelectItem value="JSON">JSON</SelectItem>
             <SelectItem value="Object">Object</SelectItem>

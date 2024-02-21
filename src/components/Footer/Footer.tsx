@@ -1,10 +1,16 @@
+import { Github } from "../icons/icons";
+
 export default function Footer() {
   return (
     <>
-      <footer className="w-full text-center">
-        <p className="text-gray-600">
-          Contribui aca
+      <footer className="flex justify-center gap-2 w-full text-center">
+        <p className="font-bold">
+          Contribuí aca
         </p>
+        <a href="https://github.com/villarrealjoaquin/RapidFormat" target="_blank">
+          <Github /> 
+        </a>
+        ✨🚀
       </footer>
     </>
   )

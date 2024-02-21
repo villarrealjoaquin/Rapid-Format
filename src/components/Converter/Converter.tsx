@@ -4,19 +4,20 @@ interface Props {
   onQueryChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   value: string;
   readonly?: boolean;
+  placeholder?: string;
 }
 
-export default function Converter({ onQueryChange, readonly = false, value }: Props) {
+export default function Converter({ onQueryChange, readonly = false, value, placeholder }: Props) {
   return (
-    <>
-      <div className="flex relative animated flex-col gap-3 text-white">
-        <Textarea
-          onChange={onQueryChange}
-          readOnly={readonly}
-          value={value}
-          className="transition-all text-black duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-    </>
+    <div className="relative animated flex flex-col gap-3 text-white">
+      <Textarea
+        onChange={onQueryChange}
+        readOnly={readonly}
+        placeholder={placeholder}
+        value={value}
+        className="transition-all bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500"
+        style={{ fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.5' }}
+      />
+    </div>
   );
 }
