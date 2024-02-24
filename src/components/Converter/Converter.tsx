@@ -15,7 +15,7 @@ export default function Converter({ onQueryChange, readonly = false, value, plac
         readOnly={readonly}
         placeholder={placeholder}
         value={value}
-        className="transition-all bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500"
+        className="transition-all w-[250px] sm:w-[450px] md:w-[550px] bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500"
         style={{ fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.5' }}
       />
     </div>

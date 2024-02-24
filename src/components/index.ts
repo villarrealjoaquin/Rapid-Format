@@ -6,6 +6,7 @@ export { default as ErrorMessage } from './ErrorMessage/ErrorMessage';
 export { default as Footer } from './Footer/Footer';
 export { default as Formats } from './Formats/Formats';
 export { default as Header } from './Header/Header';
+export { default as RenderFormat } from './RenderFormat/RenderFormat';
 export * from './icons/icons';
 export * from './ui/button';
 export * from './ui/dialog';

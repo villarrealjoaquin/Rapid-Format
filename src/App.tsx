@@ -9,6 +9,7 @@ import {
   Formats,
   Header
 } from "./components";
+import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
 import { convertToInterface, convertToJson, convertToObj } from "./utils/formattingUtils";
 
 function App() {
@@ -57,14 +58,14 @@ function App() {
       <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(135%_145%_at_50%_30%,#000_40%,#63e_100%)]"></div>
       <Header />
       <main className="w-full flex flex-col items-center">
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+        <div className="flex flex-col lg:flex-row justify-center gap-4">
           <article className="flex flex-col gap-3">
             <Converter
               onQueryChange={handleQueryChange}
               placeholder="Copia tu formato..."
               value={query}
             />
-            <Formats onValueChange={setFromFormat} />
+            <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
           </article>
           <Combinations />
 
@@ -79,7 +80,7 @@ function App() {
               <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
 
-            <Formats onValueChange={setToFormat} />
+            <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
           </article>
         </div>
 

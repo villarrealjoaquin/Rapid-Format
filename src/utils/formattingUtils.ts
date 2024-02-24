@@ -1,6 +1,6 @@
 import { ObjectType, Values } from "@/types/convert.types";
 
-export const serializator = (query: string) => {
+export const serializator = (query: string): string => {
   const trimmedQuery = query.trim();
   const cleanedQuery = trimmedQuery.replace(/\s+/g, ' ');
   const commaRemovedQuery = cleanedQuery.replace(/,\s*}/g, '}');
@@ -8,15 +8,17 @@ export const serializator = (query: string) => {
   return result;
 }
 
-export const convertToJson = (query: string) => {
+export const convertToJson = (query: string): string => {
   if (!query) return "{}";
-  const convert = JSON.parse(serializator(query.replace(/'/g, '"').replace(';', ' ')));
+  const clearStr = serializator(query.replace(/'/g, '"').replace(';', ' '));
+  const convert = JSON.parse(clearStr);
   return JSON.stringify(convert, null, 2);
 }
 
 export const convertToObj = (query: string): string => {
+  if(!query) return "{}";
   const jsonObject: ObjectType = JSON.parse(query);
-  return `{ \n${formatObjectForDisplay(jsonObject)}\n }`;
+  return `{\n${formatObjectForDisplay(jsonObject)}\n}`;
 }
 
 export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
@@ -30,7 +32,7 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
       if (typeof value === 'object' && value !== null) {
         return `${spaces}${key}: {\n${formatObjectForDisplay(value, depth + 1)}\n${spaces}}`;
       }
-      return `${spaces}${key}: ${value}`;
+      return `${spaces}${key}: "${value}"`;
     })
     .join(',\n');
 }

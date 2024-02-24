@@ -6,8 +6,14 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
+import RenderFormat from "../RenderFormat/RenderFormat";
 
-export default function Formats({ onValueChange }: { onValueChange: (value: string) => void }) {
+
+export default function Formats({
+  onValueChange, lists
+}: {
+  onValueChange: (value: string) => void, lists: string[]
+}) {
   return (
     <>
       <Select
@@ -18,9 +24,13 @@ export default function Formats({ onValueChange }: { onValueChange: (value: stri
         </SelectTrigger>
         <SelectContent className="bg-[#09090B] text-white">
           <SelectGroup>
-            <SelectItem value="JSON">JSON</SelectItem>
-            <SelectItem value="Object">Object</SelectItem>
-            <SelectItem value="interface">Interface</SelectItem>
+            <RenderFormat
+              list={lists}
+              renderList={(item) => (
+                <SelectItem value={item}>{item}</SelectItem>
+              )}
+              extractId={(item) => item}
+            />
           </SelectGroup>
         </SelectContent>
       </Select>
