@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  Background,
   Combinations,
   ConversionControls,
   Converter,
@@ -15,25 +16,28 @@ import { convertToInterface, convertToJson, convertToObj } from "./utils/formatt
 function App() {
   const [fromFormat, setFromFormat] = useState("");
   const [toFormat, setToFormat] = useState("");
-  const [query, setQuery] = useState("");
+  const [dataToConvert, setDataToConvert] = useState("");
   const [output, setOutput] = useState("");
   const [error, setError] = useState("");
+
+  const isEqual = fromFormat === toFormat;
 
   const processFormat = () => {
     try {
       const conversionMap: Record<string, () => string> = {
-        'Object-JSON': () => convertToJson(query),
-        'Object-interface': () => convertToInterface(query),
-        'JSON-Object': () => convertToObj(query),
-        'JSON-interface': () => convertToInterface(query),
+        'Object-JSON': () => convertToJson(dataToConvert),
+        'Object-interface': () => convertToInterface(dataToConvert),
+        'JSON-Object': () => convertToObj(dataToConvert),
+        'JSON-interface': () => convertToInterface(dataToConvert),
       };
 
       const conversionKey = `${fromFormat}-${toFormat}`;
       const conversionFunction = conversionMap[conversionKey];
       if (conversionFunction) setOutput(conversionFunction());
     } catch (error) {
+      console.error(error);
       if (error instanceof SyntaxError) {
-        setError("Error de sintaxis");
+        setError("Error en el formato de entrada, asegúrate de que los datos de entrada son correctos.");
       }
     }
   }
@@ -42,8 +46,8 @@ function App() {
     setOutput("");
   }
 
-  const handleQueryChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setQuery(event.target.value);
+  const handleQueryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDataToConvert(e.target.value);
   }
 
   useEffect(() => {
@@ -55,7 +59,7 @@ function App() {
 
   return (
     <>
-      <div className="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(135%_145%_at_50%_30%,#000_40%,#63e_100%)]"></div>
+      <Background />
       <Header />
       <main className="w-full flex flex-col items-center">
         <div className="flex flex-col lg:flex-row justify-center gap-4">
@@ -63,7 +67,7 @@ function App() {
             <Converter
               onQueryChange={handleQueryChange}
               placeholder="Copia tu formato..."
-              value={query}
+              value={dataToConvert}
             />
             <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
           </article>
@@ -88,6 +92,7 @@ function App() {
           fromFormat={fromFormat}
           toFormat={toFormat}
           onConvertClick={processFormat}
+          isEqual={isEqual}
         />
 
         <ErrorMessage error={error} />

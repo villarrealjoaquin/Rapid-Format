@@ -1,22 +1,45 @@
 import { test, expect } from '@playwright/test';
 import { convertToJson } from '../../src/utils/formattingUtils';
 
-test.describe(('convertToJson test'), () => {
-  test(('if the first parameter is not valid should return an object'), () => {
+test.describe('convertToJson test', () => {
+  test('should handle empty input', async () => {
+    const input = '';
+    const expectedOutput = '{}';
 
-  })
+    const result = convertToJson(input);
 
-  // test('the first parameter should be a string', () => {
-  //   const parameter = '{ key1: "value1", key2: "value2" }';
+    expect(result).toEqual(expectedOutput);
+  });
 
-  //   expect(() => {
-  //     convertToJson(parameter);
-  //   }).toThrow('The first parameter must be a string');
-  // })
+  test('should handle valid JSON string', async () => {
+    const input = '{"key": "value", "array": [1, 2, 3]}';
+    const expectedOutput = '{\n  "key": "value",\n  "array": [1, 2, 3]\n}';
 
-  // test('should replace simple quotes for double quotes', () => {
-  //   const inputQuery = "{ 'key1': 'value1', 'key2': 'value2' }";
-  //   const expectedOutput = '{ "key1": "value1", "key2": "value2" }';
-  //   expect(convertToJson(inputQuery)).toEqual(expectedOutput);
-  // })
-})
+    const result = convertToJson(input);
+
+    expect(result).toEqual(expectedOutput);
+  });
+
+  test('should handle string with escaped characters', () => {
+    const input = '{"key": "Hello \\"world\\""}';
+    const expectedOutput = '{\n  "key": "Hello \"world\"\"\n}';
+
+    const result = convertToJson(input);
+
+    expect(result).toEqual(expectedOutput);
+  });
+
+  test('should handle invalid JSON string', () => {
+    const input = '{ "key": "value"'; 
+
+    expect(() => convertToJson(input)).toThrowError();
+  });
+
+  test('should handle empty string after cleaning (regression test)', () => {
+    const input = '';
+    const expectedOutput = '{}'; 
+    const result = convertToJson(input);
+
+    expect(result).toEqual(expectedOutput);
+  });
+});

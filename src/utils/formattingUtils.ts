@@ -1,24 +1,44 @@
 import { ObjectType, Values } from "@/types/convert.types";
+export const convertToJson = (dataToConvert: string): string => {
+  if (!dataToConvert) return "{}";
+  try {
+    const clearStr = serializator(
+      dataToConvert.replace(/'/g, '"').replace(";", " ")
+    );
+    const convert = JSON.parse(clearStr);
+    return `{\n${formatJsonForDisplay(convert)}}`;
+  } catch (error) {
+    return `{\n${formatJsonForDisplay(JSON.parse(dataToConvert))}\n}`
+  }
+};
 
-export const serializator = (query: string): string => {
-  const trimmedQuery = query.trim();
-  const cleanedQuery = trimmedQuery.replace(/\s+/g, ' ');
-  const commaRemovedQuery = cleanedQuery.replace(/,\s*}/g, '}');
-  const result = commaRemovedQuery.replace(/(\w+):/g, '"$1":');
-  return result;
+function formatJsonForDisplay(data: ObjectType, depth = 1): string {
+  const spaces = " ".repeat(depth * 2);
+  return Object.entries(data)
+    .map(([key, value]) => {
+      if (Array.isArray(value)) {
+        const arr = `[${value.map((e) => JSON.stringify(e)).join(", ")}]`;
+        return `${spaces}"${key}": ${arr},\n`;
+      }
+      if (typeof value === "object") {
+        return `${spaces}"${key}": {\n${formatJsonForDisplay(
+          value,
+          depth + 1
+        )}${spaces}},\n`;
+      }
+      return `${spaces}"${key}": "${value}",\n`;
+    })
+    .join("");
 }
 
-export const convertToJson = (query: string): string => {
-  if (!query) return "{}";
-  const clearStr = serializator(query.replace(/'/g, '"').replace(';', ' '));
-  const convert = JSON.parse(clearStr);
-  return JSON.stringify(convert, null, 2);
-}
-
-export const convertToObj = (query: string): string => {
-  if(!query) return "{}";
-  const jsonObject: ObjectType = JSON.parse(query);
-  return `{\n${formatObjectForDisplay(jsonObject)}\n}`;
+export const convertToObj = (dataToConvert: string): string => {
+  try {
+    if (!dataToConvert) return "{}";
+    const jsonObject: ObjectType = JSON.parse(dataToConvert);
+    return `{\n${formatObjectForDisplay(jsonObject)}\n}`;
+  } catch (error) {
+    return `{\n${formatObjectForDisplay(JSON.parse(serializator(dataToConvert)))}\n}`;
+  }
 }
 
 export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
@@ -32,19 +52,19 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
       if (typeof value === 'object' && value !== null) {
         return `${spaces}${key}: {\n${formatObjectForDisplay(value, depth + 1)}\n${spaces}}`;
       }
-      return `${spaces}${key}: "${value}"`;
+      return `${spaces}${key}: ${typeof value === 'string' ? "\"" + value + "\"" : value}`;
     })
     .join(',\n');
 }
 
-export const convertToInterface = (query: string): string => {
-  const jsonObject: ObjectType = JSON.parse(serializator(query.replace(';', ' ')));
+export const convertToInterface = (dataToConvert: string): string => {
+  const jsonObject: ObjectType = JSON.parse(serializator(dataToConvert.replace(';', ' ')));
   const copyJson = structuredClone(jsonObject);
-  const interfaceString = `interface MyInterface ${formatObjectForInterface(copyJson)}\n}`;
+  const interfaceString = `interface MyInterface ${formatInterfaceForDisplay(copyJson)}\n}`;
   return interfaceString.replace(/,/g, ';');
 }
 
-export const formatObjectForInterface = (obj: ObjectType, depth = 1): string => {
+export const formatInterfaceForDisplay = (obj: ObjectType, depth = 1): string => {
   const spaces = '  '.repeat(depth);
   return `{\n${Object.entries(obj)
     .map(([key, value]) => {
@@ -56,6 +76,7 @@ export const formatObjectForInterface = (obj: ObjectType, depth = 1): string => 
 }
 
 export function getTypeString(value: Values, depth: number): string {
+  const spaces = '  '.repeat(depth - 1);
   const typeMapping: Record<string, (value: ObjectType) => string> = {
     string: () => "string",
     number: () => "number",
@@ -67,8 +88,16 @@ export function getTypeString(value: Values, depth: number): string {
       if (typeof value === 'function') {
         return "string";
       }
-      return formatObjectForInterface(value, depth);
-    },
+      return `${formatInterfaceForDisplay(value, depth)}\n${spaces}}`;
+    }
   };
   return typeMapping[typeof value](value as ObjectType);
+}
+
+export const serializator = (dataToConvert: string): string => {
+  const trimmedQuery = dataToConvert.trim();
+  const cleanedQuery = trimmedQuery.replace(/\s+/g, ' ');
+  const commaRemovedQuery = cleanedQuery.replace(/,\s*}/g, '}');
+  const result = commaRemovedQuery.replace(/(['"]?)(\w+)(['"]?):/g, '"$2":');
+  return result;
 }

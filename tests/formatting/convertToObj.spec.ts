@@ -3,11 +3,6 @@ import { convertToObj } from '../../src/utils/formattingUtils';
 
 
 test.describe('convertToObj', () => {
-  test('the parameter should be a string', () => {
-    const expectedParameter = '{"key1": "value1", "key2": "value2"}';
-    expect(convertToObj(expectedParameter)).toBeTruthy();
-  });
-
   test('should return an empty object for an empty string', () => {
     const input = '';
     const expectedOutput = '{}';

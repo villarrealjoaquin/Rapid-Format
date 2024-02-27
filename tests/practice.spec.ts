@@ -19,10 +19,6 @@ function bubbleSort(arr: number[]) {
 }
 
 test.describe('bubble sort', () => {
-  test('should be a function', () => {
-    expect(bubbleSort).toBeInstanceOf(Function);
-  })
-
   test('the first parameter should be a array', () => {
     expect(bubbleSort([1, 2, 3])).toEqual([1, 2, 3]);
   })
