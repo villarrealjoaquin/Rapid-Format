@@ -1,4 +1,5 @@
 import { ObjectType, Values } from "@/types/convert.types";
+
 export const convertToJson = (dataToConvert: string): string => {
   if (!dataToConvert) return "{}";
   try {

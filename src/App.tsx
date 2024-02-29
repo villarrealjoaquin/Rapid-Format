@@ -71,7 +71,13 @@ function App() {
             />
             <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
           </article>
-          <Combinations />
+
+          <ConversionControls
+            fromFormat={fromFormat}
+            toFormat={toFormat}
+            onConvertClick={processFormat}
+            isEqual={isEqual}
+          />
 
           <article className="flex flex-col gap-3">
             <div className="relative">
@@ -88,15 +94,10 @@ function App() {
           </article>
         </div>
 
-        <ConversionControls
-          fromFormat={fromFormat}
-          toFormat={toFormat}
-          onConvertClick={processFormat}
-          isEqual={isEqual}
-        />
+        <p className="text-gray-600 text-center mt-2 font-bold mb-2">Selecciona los formatos de entrada y salida, luego haz clic en "Convertir Datos".</p>
+        <Combinations />
 
         <ErrorMessage error={error} />
-
       </main>
       <Footer />
 
