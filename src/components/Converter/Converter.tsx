@@ -7,16 +7,20 @@ interface Props {
   placeholder?: string;
 }
 
-export default function Converter({ onQueryChange, readonly = false, value, placeholder }: Props) {
+export default function Converter({
+  onQueryChange,
+  readonly = false,
+  value,
+  placeholder,
+}: Props) {
   return (
-    <div className="relative animated flex flex-col gap-3 text-white">
+    <div className="relative animate-appear flex flex-col gap-3 text-white">
       <Textarea
         onChange={onQueryChange}
         readOnly={readonly}
         placeholder={placeholder}
         value={value}
-        className="transition-all w-[250px] sm:w-[450px] md:w-[550px] bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500"
-        style={{ fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.5' }}
+        className="text-[14px] font-mono leading-relaxed transition-all w-[250px] sm:w-[450px] md:w-[550px] bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring"
       />
     </div>
   );

@@ -13,38 +13,42 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
   /* Dark theme */
-  background-color: #121111; 
+  background-color: #121111;
   color: #f7fafc;
 }
 
-
 @keyframes color-wave {
   0% {
-    color: #8B5CF6;
+    background-position: 0% 50%;
   }
   50% {
-    color: #9333EA; 
+    background-position: 100% 50%;
   }
   100% {
-    color: #8B5CF6; 
+    background-position: 0% 50%;
   }
 }
 
 .animate-color-wave {
-  animation: color-wave linear 2s infinite;
+  background: linear-gradient(-45deg, #8b5cf6, #9333ea, #a855f7, #7c3aed);
+  background-size: 400% 400%;
+  animation: color-wave ease 3s infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.animated {
-  animation: appear 0.5s ease-out;
+.animate-delay-200 {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
 }
 
-@keyframes appear {
-  from {
-    transform: translateY(6px);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+.animate-delay-400 {
+  animation-delay: 0.4s;
+  animation-fill-mode: both;
+}
+
+.animate-delay-600 {
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
 }
