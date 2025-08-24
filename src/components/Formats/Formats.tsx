@@ -8,13 +8,12 @@ import {
 } from "@/components/ui/select";
 import RenderFormat from "../RenderFormat/RenderFormat";
 
-export default function Formats({
-  onValueChange,
-  lists,
-}: {
+interface Props {
   onValueChange: (value: string) => void;
   lists: string[];
-}) {
+}
+
+export default function Formats({ onValueChange, lists }: Props) {
   return (
     <>
       <Select onValueChange={onValueChange}>

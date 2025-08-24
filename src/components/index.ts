@@ -1,9 +1,9 @@
 export { default as Background } from "./Background/Background";
+export { default as CodeEditor } from "./CodeEditor/CodeEditor";
 export { default as Combinations } from "./Combinations/Combinations";
 export { default as ConversionControls } from "./ConversionControls/ConversionControls";
 export { default as Converter } from "./Converter/Converter";
 export { default as CopyText } from "./CopyText/CopyText";
-export { default as ErrorMessage } from "./ErrorMessage/ErrorMessage";
 export { default as Footer } from "./Footer/Footer";
 export { default as Formats } from "./Formats/Formats";
 export { default as Header } from "./Header/Header";

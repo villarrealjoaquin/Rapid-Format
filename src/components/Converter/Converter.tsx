@@ -1,4 +1,4 @@
-import { Textarea } from "../ui/textarea";
+import CodeEditor from "../CodeEditor/CodeEditor";
 
 interface Props {
   onQueryChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -15,12 +15,12 @@ export default function Converter({
 }: Props) {
   return (
     <div className="relative animate-appear flex flex-col gap-3 text-white">
-      <Textarea
-        onChange={onQueryChange}
-        readOnly={readonly}
-        placeholder={placeholder}
+      <CodeEditor
         value={value}
-        className="text-[14px] font-mono leading-relaxed transition-all w-[250px] sm:w-[450px] md:w-[550px] bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring"
+        onChange={onQueryChange}
+        placeholder={placeholder}
+        readOnly={readonly}
+        className="transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
       />
     </div>
   );

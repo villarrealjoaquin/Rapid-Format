@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { toast } from "sonner";
 import {
   Background,
   Combinations,
   ConversionControls,
   Converter,
   CopyText,
-  ErrorMessage,
   Footer,
   Formats,
   Header,
   Help,
 } from "./components";
+import { Toaster } from "./components/ui/sonner";
 import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
 import {
   convertToInterface,
@@ -23,7 +24,6 @@ function App() {
   const [toFormat, setToFormat] = useState("");
   const [dataToConvert, setDataToConvert] = useState("");
   const [output, setOutput] = useState("");
-  const [error, setError] = useState("");
 
   const isEqual = fromFormat === toFormat;
 
@@ -31,9 +31,9 @@ function App() {
     try {
       const conversionMap: Record<string, () => string> = {
         "Object-JSON": () => convertToJson(dataToConvert),
-        "Object-interface": () => convertToInterface(dataToConvert),
+        "Object-Interface": () => convertToInterface(dataToConvert),
         "JSON-Object": () => convertToObj(dataToConvert),
-        "JSON-interface": () => convertToInterface(dataToConvert),
+        "JSON-Interface": () => convertToInterface(dataToConvert),
       };
 
       const conversionKey = `${fromFormat}-${toFormat}`;
@@ -42,8 +42,8 @@ function App() {
     } catch (error) {
       console.error(error);
       if (error instanceof SyntaxError) {
-        setError(
-          "Error en el formato de entrada, asegúrate de que los datos de entrada son correctos."
+        toast.error(
+          "Error en el formato de entrada, asegúrate de que los datos son correctos."
         );
       }
     }
@@ -57,13 +57,6 @@ function App() {
     setDataToConvert(e.target.value);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setError("");
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [error]);
-
   return (
     <>
       <Background />
@@ -76,12 +69,12 @@ function App() {
       <main className="w-full flex flex-col items-center">
         <div className="flex flex-col lg:flex-row justify-center gap-4">
           <article className="flex flex-col gap-3">
+            <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
             <Converter
               onQueryChange={handleQueryChange}
               placeholder="Copia tu formato..."
               value={dataToConvert}
             />
-            <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
           </article>
 
           <ConversionControls
@@ -92,6 +85,7 @@ function App() {
           />
 
           <article className="flex flex-col gap-3">
+            <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
             <div className="relative">
               <Converter
                 key={output}
@@ -101,14 +95,11 @@ function App() {
               />
               <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
-
-            <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
           </article>
         </div>
-
-        <ErrorMessage error={error} />
       </main>
       <Footer />
+      <Toaster />
     </>
   );
 }

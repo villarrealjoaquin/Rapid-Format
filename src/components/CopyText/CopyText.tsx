@@ -18,7 +18,7 @@ export default function CopyText({ text, onDeleteOutput }: { text: string, onDel
   return (
     <>
       <CopyToClipboard text={text}>
-        <div className="flex absolute bottom-2 right-6 gap-3">
+        <div className="flex absolute bottom-2 right-2 gap-3 z-50">
           <Button className="flex items-center bg-red-500 hover:bg-red-500/90 hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={onDeleteOutput}
             disabled={!text}
