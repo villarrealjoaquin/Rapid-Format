@@ -1,5 +1,4 @@
 export { default as Background } from "./Background/Background";
-export { default as CodeEditor } from "./CodeEditor/CodeEditor";
 export { default as Combinations } from "./Combinations/Combinations";
 export { default as ConversionControls } from "./ConversionControls/ConversionControls";
 export { default as Converter } from "./Converter/Converter";

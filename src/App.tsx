@@ -85,7 +85,11 @@ function App() {
           />
 
           <article className="flex flex-col gap-3">
+            <div className="flex gap-3 justify-between">
             <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
+            <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
+            </div>
+           
             <div className="relative">
               <Converter
                 key={output}
@@ -93,7 +97,6 @@ function App() {
                 readonly={true}
                 value={output}
               />
-              <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
           </article>
         </div>
