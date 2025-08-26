@@ -41,4 +41,18 @@ test.describe("convertToInterface test", () => {
 
     expect(result).toEqual(expectedOutput);
   });
+
+  test("should throw SyntaxError for invalid JSON", () => {
+    const invalidInputs = [
+      '{"name": "John", "age":}',
+      '{"name": "John" "age": 30}',
+      "{name: John, age: 30",
+      "invalid json string",
+      "",
+    ];
+
+    invalidInputs.forEach((input) => {
+      expect(() => convertToInterface(input)).toThrow(SyntaxError);
+    });
+  });
 });

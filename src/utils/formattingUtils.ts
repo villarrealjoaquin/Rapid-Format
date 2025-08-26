@@ -78,7 +78,7 @@ export const convertToInterface = (dataToConvert: string): string => {
     try {
       jsonObject = JSON.parse(serializator(dataToConvert.replace(";", " ")));
     } catch (serializatorError) {
-      throw new Error("Invalid JSON or object format");
+      throw new SyntaxError("Invalid JSON or object format");
     }
   }
 

@@ -41,7 +41,7 @@ function App() {
       if (conversionFunction) setOutput(conversionFunction());
     } catch (error) {
       console.error(error);
-      if (error instanceof SyntaxError) {
+      if (error instanceof SyntaxError || error instanceof Error) {
         toast.error(
           "Error en el formato de entrada, asegúrate de que los datos son correctos."
         );
@@ -86,10 +86,10 @@ function App() {
 
           <article className="flex flex-col gap-3">
             <div className="flex gap-3 justify-between">
-            <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
-            <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
+              <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
+              <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
-           
+
             <div className="relative">
               <Converter
                 key={output}
