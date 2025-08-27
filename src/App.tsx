@@ -10,6 +10,7 @@ import {
 } from "./components";
 import { Toaster } from "./components/ui/sonner";
 import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
+import { useTranslations } from "./hooks/useTranslations";
 import {
   convertToInterface,
   convertToJson,
@@ -17,6 +18,7 @@ import {
 } from "./utils/formattingUtils";
 
 function App() {
+  const { t } = useTranslations();
   const [fromFormat, setFromFormat] = useState("");
   const [toFormat, setToFormat] = useState("");
   const [dataToConvert, setDataToConvert] = useState("");
@@ -39,9 +41,7 @@ function App() {
     } catch (error) {
       console.error(error);
       if (error instanceof SyntaxError || error instanceof Error) {
-        toast.error(
-          "Error en el formato de entrada, asegúrate de que los datos son correctos."
-        );
+        toast.error(t('errors.conversionError'));
       }
     }
   };
@@ -57,7 +57,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-10 min-h-[calc(100vh-200px)] lg:flex-row lg:mt-0 lg:gap-10">
+      <main className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-4 min-h-[calc(100vh-200px)] lg:flex-row lg:gap-10">
         <article className="flex flex-col gap-3">
           <Formats
             onValueChange={setFromFormat}
@@ -66,7 +66,7 @@ function App() {
           />
           <Converter
             onQueryChange={handleQueryChange}
-            placeholder="Copia tu formato..."
+            placeholder={t('converter.inputPlaceholder')}
             value={dataToConvert}
           />
         </article>

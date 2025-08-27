@@ -1,16 +1,40 @@
-import { CONVERSIONS } from "@/constants";
+import { useTranslations } from "../../hooks/useTranslations";
 import { ConvertIcon } from "../icons/icons";
 import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "../ui/dialog";
 
 export default function Combinations() {
+  const { t } = useTranslations();
+
+  const CONVERSIONS = [
+    {
+      from: "Object",
+      to: "JSON",
+      description: t('combinations.objectToJsonDesc'),
+    },
+    {
+      from: "Object",
+      to: "Interface",
+      description: t('combinations.objectToInterfaceDesc'),
+    },
+    {
+      from: "JSON",
+      to: "Object",
+      description: t('combinations.jsonToObjectDesc'),
+    },
+    {
+      from: "JSON",
+      to: "Interface",
+      description: t('combinations.jsonToInterfaceDesc'),
+    },
+  ];
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,19 +44,15 @@ export default function Combinations() {
           className="flex items-center gap-2 bg-black/90 border-gray-700 text-white hover:bg-purple-700 hover:border-purple-600 hover:text-white hover:scale-105 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-gray-500/25"
         >
           <ConvertIcon />
-          <span className="hidden md:inline font-medium">Conversiones</span>
+          <span className="hidden md:inline font-medium">{t('combinations.title')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[600px] bg-white [&>button]:text-black">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-purple-600 flex items-center gap-2">
             <ConvertIcon />
-            Conversiones Disponibles
+            {t('combinations.title')}
           </DialogTitle>
-          <DialogDescription className="text-black">
-            Estas son todas las conversiones que puedes realizar con Rapid
-            Format
-          </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 mt-4">

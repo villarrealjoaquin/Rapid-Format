@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-
 echo "🔨 Running build..."
 npm run build
 
