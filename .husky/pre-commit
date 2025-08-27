@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔨 Running build..."
+npm run build
+
+echo "🧪 Running tests..."
+npm run test
+
+echo "✅ Pre-commit checks passed!"
