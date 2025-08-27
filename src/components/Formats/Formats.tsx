@@ -11,9 +11,16 @@ import RenderFormat from "../RenderFormat/RenderFormat";
 interface Props {
   onValueChange: (value: string) => void;
   lists: string[];
+  excludeFormat?: string;
 }
 
-export default function Formats({ onValueChange, lists }: Props) {
+export default function Formats({
+  onValueChange,
+  lists,
+  excludeFormat,
+}: Props) {
+  const filteredLists = lists.filter((format) => format !== excludeFormat);
+
   return (
     <>
       <Select onValueChange={onValueChange}>
@@ -23,7 +30,7 @@ export default function Formats({ onValueChange, lists }: Props) {
         <SelectContent className="bg-[#09090B] text-white">
           <SelectGroup>
             <RenderFormat
-              list={lists}
+              list={filteredLists}
               renderList={(item) => (
                 <SelectItem value={item}>{item}</SelectItem>
               )}
