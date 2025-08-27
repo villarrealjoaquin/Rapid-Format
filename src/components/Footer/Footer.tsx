@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <>
       <footer className="flex justify-center items-center gap-4 w-full text-center mt-10 mb-10 lg:mt-0 lg:mb-0">
-        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 z-50">
           <p className="text-gray-300 text-sm">¿Te gusta el proyecto?</p>
           <Button
             asChild

@@ -57,39 +57,45 @@ function App() {
   return (
     <>
       <Header />
-      <main className="w-full flex flex-wrap items-center justify-center min-h-[calc(100vh-200px)] gap-5 mt-10 lg:mt-0">
+      <main className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-10 min-h-[calc(100vh-200px)] lg:flex-row lg:mt-0 lg:gap-10">
         <article className="flex flex-col gap-3">
-          <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
+          <Formats
+            onValueChange={setFromFormat}
+            lists={INPUT_ALL_FORMATS}
+            excludeFormat={toFormat}
+          />
           <Converter
             onQueryChange={handleQueryChange}
             placeholder="Copia tu formato..."
             value={dataToConvert}
           />
         </article>
-        <div className="flex flex-col lg:flex-row gap-5 items-center z-50">
-          <article className="p-4 lg:p-0">
-            <ConversionControls
-              fromFormat={fromFormat}
-              toFormat={toFormat}
-              onConvertClick={processFormat}
-              isEqual={isEqual}
+        <article className="p-10 z-50 lg:p-0">
+          <ConversionControls
+            fromFormat={fromFormat}
+            toFormat={toFormat}
+            onConvertClick={processFormat}
+            isEqual={isEqual}
+          />
+        </article>
+        <article className="flex flex-col gap-3">
+          <div className="flex gap-3 justify-between">
+            <Formats
+              onValueChange={setToFormat}
+              lists={OUTPUT_ALL_FORMATS}
+              excludeFormat={fromFormat}
             />
-          </article>
-          <article className="flex flex-col gap-3">
-            <div className="flex gap-3 justify-between">
-              <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
-              <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
-            </div>
-            <div>
-              <Converter
-                key={output}
-                onQueryChange={handleQueryChange}
-                readonly={true}
-                value={output}
-              />
-            </div>
-          </article>
-        </div>
+            <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
+          </div>
+          <div className="z-50">
+            <Converter
+              key={output}
+              onQueryChange={handleQueryChange}
+              readonly={true}
+              value={output}
+            />
+          </div>
+        </article>
       </main>
       <Footer />
       <Toaster />
