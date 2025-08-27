@@ -1,19 +1,29 @@
+import { Terminal } from "lucide-react";
+import Combinations from "../Combinations/Combinations";
+import Help from "../Help/Help";
+
 export default function Header() {
   return (
-    <>
-      <header className="text-center mb-12 px-4">
-        <div className="flex flex-col items-center gap-6 max-w-2xl mx-auto">
-          <div className="flex flex-col items-center gap-2 animate-scale-in">
-            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
+    <header className="flex items-center justify-between px-6 py-4 rounded-2xl border border-purple-500/20 backdrop-blur-sm mx-10">
+      <div className="relative flex flex-col items-start gap-1 animate-scale-in z-10">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl shadow-lg shadow-purple-500/25 animate-float">
+            <Terminal />
+          </div>
+          <div className="flex flex-col">
+            <h1 className="hidden md:block text-4xl font-extrabold tracking-tight leading-none">
               <span className="animate-color-wave">Rapid</span>{" "}
               <span className="text-gray-300 transition-colors duration-300 hover:text-white">
                 Format
               </span>
             </h1>
-            <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-purple-700 rounded-full animate-pulse animate-delay-200"></div>
           </div>
         </div>
-      </header>
-    </>
+      </div>
+      <div className="relative flex gap-3 z-10">
+        <Help />
+        <Combinations />
+      </div>
+    </header>
   );
 }

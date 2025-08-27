@@ -19,7 +19,7 @@ export default function Help() {
           className="flex items-center gap-2 bg-black/90 border-gray-700 text-white hover:bg-purple-700 hover:border-purple-600 hover:text-white hover:scale-105 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
         >
           <HelpCircle />
-          <span className="hidden sm:inline font-medium">Ayuda</span>
+          <span className="hidden md:inline font-medium">Ayuda</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] bg-white [&>button]:text-black">

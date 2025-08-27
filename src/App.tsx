@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import {
-  Background,
-  Combinations,
   ConversionControls,
   Converter,
   CopyText,
   Footer,
   Formats,
   Header,
-  Help,
 } from "./components";
 import { Toaster } from "./components/ui/sonner";
 import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
@@ -59,38 +56,31 @@ function App() {
 
   return (
     <>
-      <Background />
       <Header />
-      <div className="fixed top-4 right-4 z-50 flex gap-3">
-        <Help />
-        <Combinations />
-      </div>
-
-      <main className="w-full flex flex-col items-center">
-        <div className="flex flex-col lg:flex-row justify-center gap-4">
-          <article className="flex flex-col gap-3">
-            <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
-            <Converter
-              onQueryChange={handleQueryChange}
-              placeholder="Copia tu formato..."
-              value={dataToConvert}
+      <main className="w-full flex flex-wrap items-center justify-center min-h-[calc(100vh-200px)] gap-5 mt-10 lg:mt-0">
+        <article className="flex flex-col gap-3">
+          <Formats onValueChange={setFromFormat} lists={INPUT_ALL_FORMATS} />
+          <Converter
+            onQueryChange={handleQueryChange}
+            placeholder="Copia tu formato..."
+            value={dataToConvert}
+          />
+        </article>
+        <div className="flex flex-col lg:flex-row gap-5 items-center z-50">
+          <article className="p-4 lg:p-0">
+            <ConversionControls
+              fromFormat={fromFormat}
+              toFormat={toFormat}
+              onConvertClick={processFormat}
+              isEqual={isEqual}
             />
           </article>
-
-          <ConversionControls
-            fromFormat={fromFormat}
-            toFormat={toFormat}
-            onConvertClick={processFormat}
-            isEqual={isEqual}
-          />
-
           <article className="flex flex-col gap-3">
             <div className="flex gap-3 justify-between">
               <Formats onValueChange={setToFormat} lists={OUTPUT_ALL_FORMATS} />
               <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
             </div>
-
-            <div className="relative">
+            <div>
               <Converter
                 key={output}
                 onQueryChange={handleQueryChange}
