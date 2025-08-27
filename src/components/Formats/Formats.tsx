@@ -4,22 +4,20 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 import RenderFormat from "../RenderFormat/RenderFormat";
 
+interface Props {
+  onValueChange: (value: string) => void;
+  lists: string[];
+}
 
-export default function Formats({
-  onValueChange, lists
-}: {
-  onValueChange: (value: string) => void, lists: string[]
-}) {
+export default function Formats({ onValueChange, lists }: Props) {
   return (
     <>
-      <Select
-        onValueChange={onValueChange}
-      >
-        <SelectTrigger className="w-[180px] bg-[#09090B] border-[#09090B]">
+      <Select onValueChange={onValueChange}>
+        <SelectTrigger className="w-[180px] bg-[#09090B] border-none">
           <SelectValue placeholder="Selecciona el formato" />
         </SelectTrigger>
         <SelectContent className="bg-[#09090B] text-white">
@@ -35,5 +33,5 @@ export default function Formats({
         </SelectContent>
       </Select>
     </>
-  )
+  );
 }

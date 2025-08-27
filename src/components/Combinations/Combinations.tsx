@@ -1,53 +1,64 @@
+import { CONVERSIONS } from "@/constants";
+import { ConvertIcon } from "../icons/icons";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Button } from "../ui/button";
 
 export default function Combinations() {
   return (
-    <div className="flex flex-col gap-3 w-[180px] justify-center items-center ">
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button variant="outline" className="bg-[#09090B] border-[#09090B]">Conversiones</Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px] p-4 bg-[#09090B] border-[#09090B]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-purple-600">
-              Conversiones Disponibles
-            </DialogTitle>
-          </DialogHeader>
-          <table className="w-full mt-3">
-            <thead>
-              <tr className="bg-purple-200 text-purple-700">
-                <th className="py-2 px-4">Desde</th>
-                <th className="py-2 px-4">Hacia</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="py-2 px-4">Object</td>
-                <td className="py-2 px-4">JSON</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4">Object</td>
-                <td className="py-2 px-4">Interface</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4">JSON</td>
-                <td className="py-2 px-4">Object</td>
-              </tr>
-              <tr>
-                <td className="py-2 px-4">JSON</td>
-                <td className="py-2 px-4">Interface</td>
-              </tr>
-            </tbody>
-          </table>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-2 bg-black/90 border-gray-700 text-white hover:bg-purple-700 hover:border-purple-600 hover:text-white hover:scale-105 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-gray-500/25"
+        >
+          <ConvertIcon />
+          <span className="hidden md:inline font-medium">Conversiones</span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[600px] bg-white [&>button]:text-black">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold text-purple-600 flex items-center gap-2">
+            <ConvertIcon />
+            Conversiones Disponibles
+          </DialogTitle>
+          <DialogDescription className="text-black">
+            Estas son todas las conversiones que puedes realizar con Rapid
+            Format
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="grid gap-4 mt-4">
+          {CONVERSIONS.map((conversion, index) => (
+            <div
+              key={index}
+              className="bg-purple-50 p-4 rounded-lg border border-purple-200 hover:border-purple-600 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <span className="bg-purple-600 text-white px-3 py-1 rounded-md text-sm font-medium">
+                    {conversion.from}
+                  </span>
+                  <div className="text-purple-600">
+                    <ConvertIcon />
+                  </div>
+                  <span className="bg-black text-white px-3 py-1 rounded-md text-sm font-medium">
+                    {conversion.to}
+                  </span>
+                </div>
+              </div>
+              <p className="text-black text-sm">{conversion.description}</p>
+            </div>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
