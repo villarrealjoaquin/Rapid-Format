@@ -1,3 +1,4 @@
+import { CONVERSIONS } from "@/constants";
 import { useTranslations } from "../../hooks/useTranslations";
 import { ConvertIcon } from "../icons/icons";
 import { Button } from "../ui/button";
@@ -11,29 +12,6 @@ import {
 
 export default function Combinations() {
   const { t } = useTranslations();
-
-  const CONVERSIONS = [
-    {
-      from: "Object",
-      to: "JSON",
-      description: t('combinations.objectToJsonDesc'),
-    },
-    {
-      from: "Object",
-      to: "Interface",
-      description: t('combinations.objectToInterfaceDesc'),
-    },
-    {
-      from: "JSON",
-      to: "Object",
-      description: t('combinations.jsonToObjectDesc'),
-    },
-    {
-      from: "JSON",
-      to: "Interface",
-      description: t('combinations.jsonToInterfaceDesc'),
-    },
-  ];
   
   return (
     <Dialog>
@@ -74,7 +52,7 @@ export default function Combinations() {
                   </span>
                 </div>
               </div>
-              <p className="text-black text-sm">{conversion.description}</p>
+              <p className="text-black text-sm">{t(conversion.description)}</p>
             </div>
           ))}
         </div>
