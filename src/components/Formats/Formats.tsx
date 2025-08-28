@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "../../hooks/useTranslations";
 import RenderFormat from "../RenderFormat/RenderFormat";
 
 interface Props {
@@ -19,13 +20,14 @@ export default function Formats({
   lists,
   excludeFormat,
 }: Props) {
+  const { t } = useTranslations();
   const filteredLists = lists.filter((format) => format !== excludeFormat);
 
   return (
     <>
       <Select onValueChange={onValueChange}>
-        <SelectTrigger className="w-[180px] bg-[#09090B] border-none">
-          <SelectValue placeholder="Selecciona el formato" />
+        <SelectTrigger className="w-[200px] bg-[#09090B] border-none">
+          <SelectValue placeholder={t('formats.title')} />
         </SelectTrigger>
         <SelectContent className="bg-[#09090B] text-white">
           <SelectGroup>

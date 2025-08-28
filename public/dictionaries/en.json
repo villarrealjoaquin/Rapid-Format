@@ -1,0 +1,33 @@
+{
+  "converter": {
+    "inputPlaceholder": "Paste your format here...",
+    "clearButton": "Clear",
+    "copyButton": "Copy",
+    "copiedMessage": "Copied to clipboard!"
+  },
+  "formats": {
+    "title": "Output format"
+  },
+  "combinations": {
+    "title": "Possible combinations",
+    "objectToJsonDesc": "Convert JavaScript objects to JSON format",
+    "objectToInterfaceDesc": "Generate TypeScript interfaces from objects",
+    "jsonToObjectDesc": "Transform JSON to JavaScript objects",
+    "jsonToInterfaceDesc": "Create TypeScript interfaces from JSON"
+  },
+  "help": {
+    "title": "Help",
+    "howToUse": "How to use",
+    "step1": "Paste your text in the input area",
+    "step2": "Select the desired output format",
+    "step3": "Click 'Convert'",
+    "step4": "Copy the result"
+  },
+  "footer": {
+    "like": "Do you like this project?",
+    "github": "View on GitHub"
+  },
+  "errors": {
+    "conversionError": "Error in the input format, make sure the data is correct."
+  }
+}

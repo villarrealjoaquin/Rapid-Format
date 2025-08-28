@@ -21,7 +21,8 @@ export default function Converter({
         placeholder={placeholder}
         value={value}
         spellCheck={false}
-        className="custom-scrollbar transition-all bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500 font-mono text-sm leading-6"
+
+        className="resize-none custom-scrollbar transition-all bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500 font-mono text-sm leading-6"
       />
     </div>
   );

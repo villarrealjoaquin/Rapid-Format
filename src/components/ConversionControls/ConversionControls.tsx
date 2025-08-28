@@ -13,7 +13,8 @@ const ConversionControls: React.FC<ConversionControlsProps> = ({
   toFormat,
   onConvertClick,
   isEqual,
-}) => (
+}) => {
+  return (
   <>
     <div className="flex flex-col gap-3 justify-center">
       <Button
@@ -25,6 +26,7 @@ const ConversionControls: React.FC<ConversionControlsProps> = ({
       </Button>
     </div>
   </>
-);
+  );
+};
 
 export default ConversionControls;
