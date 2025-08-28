@@ -1,4 +1,4 @@
-import { CrossArrows } from "../icons/icons";
+import { Shuffle } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface ConversionControlsProps {
@@ -22,7 +22,7 @@ const ConversionControls: React.FC<ConversionControlsProps> = ({
         disabled={fromFormat === "" || toFormat === "" || isEqual}
         onClick={onConvertClick}
       >
-        <CrossArrows />
+        <Shuffle />
       </Button>
     </div>
   </>
