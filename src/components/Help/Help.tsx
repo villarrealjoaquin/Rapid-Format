@@ -1,5 +1,5 @@
+import { HelpCircle } from "lucide-react";
 import { useTranslations } from "../../hooks/useTranslations";
-import { HelpCircle } from "../icons/icons";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -20,14 +20,14 @@ export default function Help() {
           size="sm"
           className="flex items-center gap-2 bg-black/90 border-gray-700 text-white hover:bg-purple-700 hover:border-purple-600 hover:text-white hover:scale-105 backdrop-blur-sm transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
         >
-          <HelpCircle />
+          <HelpCircle width={16} height={16} />
           <span className="hidden md:inline font-medium">{t('help.title')}</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px] bg-white [&>button]:text-black">
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold text-purple-600 flex items-center gap-2">
-            <HelpCircle />
+            <HelpCircle width={24} height={24} />
             {t('help.title')}
           </DialogTitle>
         </DialogHeader>

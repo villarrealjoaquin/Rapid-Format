@@ -1,8 +1,7 @@
 import clsx from "clsx";
-import { Trash } from "lucide-react";
+import { Check, Copy, Trash } from "lucide-react";
 import { useState } from "react";
 import CopyToClipboard from "react-copy-to-clipboard";
-import { CopiedIcon, Copy } from "../icons/icons";
 import { Button } from "../ui/button";
 
 export default function CopyText({
@@ -30,7 +29,7 @@ export default function CopyText({
             onClick={onDeleteOutput}
             disabled={!text}
           >
-            <Trash className="w-5 h-5" />
+            <Trash width={16} height={16}/>
           </Button>
           <Button
             className={clsx(
@@ -41,7 +40,7 @@ export default function CopyText({
             disabled={!text}
             onClick={handleCopyClick}
           >
-            {copied ? <CopiedIcon /> : <Copy />}
+            {copied ? <Check width={16} height={16} /> : <Copy width={16} height={16} />}
           </Button>
         </div>
       </CopyToClipboard>
