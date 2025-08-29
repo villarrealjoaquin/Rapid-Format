@@ -1,19 +1,29 @@
 {
   "converter": {
     "inputPlaceholder": "Pega tu formato aquí...",
-    "clearButton": "Limpiar",
     "copyButton": "Copiar",
-    "copiedMessage": "¡Copiado al portapapeles!"
+    "deleteButton": "Eliminar salida",
+    "copyButtonDisabled": "Botón de copia deshabilitado: no hay contenido para copiar",
+    "deleteButtonDisabled": "Botón de eliminación deshabilitado: no hay contenido para eliminar",
+    "copySuccess": "Contenido copiado al portapapeles",
+    "outputActions": "Acciones de salida"
   },
   "formats": {
-    "title": "Formato de salida"
+    "title": "Formato de salida",
+    "selectFormat": "Seleccionar formato de salida",
+    "formatSelector": "Selector de formato",
+    "formatAvailable": "formato disponible",
+    "formatsAvailable": "formatos disponibles"
   },
   "combinations": {
     "title": "Combinaciones soportadas",
     "objectToJsonDesc": "Convierte objetos JavaScript a formato JSON",
     "objectToInterfaceDesc": "Genera interfaces TypeScript desde objetos",
     "jsonToObjectDesc": "Transforma JSON a objetos JavaScript",
-    "jsonToInterfaceDesc": "Crea interfaces TypeScript desde JSON"
+    "jsonToInterfaceDesc": "Crea interfaces TypeScript desde JSON",
+    "openDialog": "Abrir diálogo de combinaciones de conversión",
+    "dialogDescription": "Combinaciones de conversión de formato disponibles",
+    "conversionList": "Lista de conversiones de formato disponibles"
   },
   "help": {
     "title": "Ayuda",
@@ -21,13 +31,36 @@
     "step1": "Pega tu texto en el área de entrada",
     "step2": "Selecciona el formato de salida deseado",
     "step3": "Haz clic en 'Convertir'",
-    "step4": "Copia el resultado"
+    "step4": "Copia el resultado",
+    "openDialog": "Abrir diálogo de ayuda",
+    "dialogDescription": "Instrucciones sobre cómo usar la herramienta de conversión de formatos"
   },
   "footer": {
     "like": "¿Te gusta este proyecto?",
-    "github": "Ver en GitHub"
+    "github": "Ver en GitHub",
+    "opensInNewTab": "(se abre en nueva pestaña)"
   },
   "errors": {
     "conversionError": "Error en el formato de entrada, asegúrate de que los datos son correctos."
+  },
+  "accessibility": {
+    "main": "Herramienta de conversión de formatos",
+    "inputSection": "Sección de formato de entrada",
+    "outputSection": "Sección de formato de salida",
+    "conversionControls": "Controles de conversión",
+    "formatSelector": "Selector de formato",
+    "textConverter": "Convertidor de texto",
+    "convertUnavailable": "Conversión no disponible",
+    "reason": {
+      "selectFormats": "Por favor selecciona formatos de entrada y salida",
+      "sameFormats": "Los formatos de entrada y salida deben ser diferentes"
+    }
+  },
+  "actions": {
+    "convert": "Convertir formatos"
+  },
+  "header": {
+    "siteHeader": "Encabezado del sitio",
+    "logo": "Logo de Rapid Format"
   }
 }

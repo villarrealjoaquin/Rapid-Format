@@ -1,19 +1,29 @@
 {
   "converter": {
     "inputPlaceholder": "Paste your format here...",
-    "clearButton": "Clear",
     "copyButton": "Copy",
-    "copiedMessage": "Copied to clipboard!"
+    "deleteButton": "Delete output",
+    "copyButtonDisabled": "Copy button disabled: no content to copy",
+    "deleteButtonDisabled": "Delete button disabled: no content to delete",
+    "copySuccess": "Content copied to clipboard",
+    "outputActions": "Output actions"
   },
   "formats": {
-    "title": "Output format"
+    "title": "Output format",
+    "selectFormat": "Select output format",
+    "formatSelector": "Format selector",
+    "formatAvailable": "format available",
+    "formatsAvailable": "formats available"
   },
   "combinations": {
     "title": "Possible combinations",
     "objectToJsonDesc": "Convert JavaScript objects to JSON format",
     "objectToInterfaceDesc": "Generate TypeScript interfaces from objects",
     "jsonToObjectDesc": "Transform JSON to JavaScript objects",
-    "jsonToInterfaceDesc": "Create TypeScript interfaces from JSON"
+    "jsonToInterfaceDesc": "Create TypeScript interfaces from JSON",
+    "openDialog": "Open conversion combinations dialog",
+    "dialogDescription": "Available format conversion combinations",
+    "conversionList": "List of available format conversions"
   },
   "help": {
     "title": "Help",
@@ -21,13 +31,35 @@
     "step1": "Paste your text in the input area",
     "step2": "Select the desired output format",
     "step3": "Click 'Convert'",
-    "step4": "Copy the result"
+    "step4": "Copy the result",
+    "openDialog": "Open help dialog",
+    "dialogDescription": "Instructions on how to use the format conversion tool"
   },
   "footer": {
     "like": "Do you like this project?",
-    "github": "View on GitHub"
+    "github": "View on GitHub",
+    "opensInNewTab": "(opens in new tab)"
   },
   "errors": {
     "conversionError": "Error in the input format, make sure the data is correct."
+  },
+  "accessibility": {
+    "main": "Format conversion tool",
+    "inputSection": "Input format section",
+    "outputSection": "Output format section",
+    "conversionControls": "Conversion controls",
+    "formatSelector": "Format selector",
+    "textConverter": "Text converter",
+    "convertUnavailable": "Conversion unavailable",
+    "reason": {
+      "selectFormats": "Please select input and output formats",
+      "sameFormats": "Input and output formats must be different"
+    }
+  },
+  "actions": {
+    "convert": "Convert formats"
+  },
+  "header": {
+    "logo": "Rapid Format logo"
   }
 }
