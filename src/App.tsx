@@ -69,14 +69,14 @@ function App() {
           className="flex flex-col gap-3"
           aria-label={t("accessibility.inputSection")}
         >
-          <div aria-label={t("accessibility.formatSelector")}>
+          <div className="z-50" aria-label={t("accessibility.formatSelector")}>
             <Formats
               onValueChange={setFromFormat}
               lists={INPUT_ALL_FORMATS}
               excludeFormat={toFormat}
             />
           </div>
-          <div aria-label={t("accessibility.textConverter")}>
+          <div className="z-50" aria-label={t("accessibility.textConverter")}>
             <Converter
               onQueryChange={handleQueryChange}
               placeholder={t("converter.inputPlaceholder")}
@@ -100,7 +100,10 @@ function App() {
           aria-label={t("accessibility.outputSection")}
         >
           <div className="flex gap-3 justify-between">
-            <div aria-label={t("accessibility.formatSelector")}>
+            <div
+              className="z-50"
+              aria-label={t("accessibility.formatSelector")}
+            >
               <Formats
                 onValueChange={setToFormat}
                 lists={OUTPUT_ALL_FORMATS}
