@@ -1,3 +1,4 @@
+import { useTranslations } from "@/hooks/useTranslations";
 import { Textarea } from "../ui/textarea";
 
 interface Props {
@@ -13,6 +14,8 @@ export default function Converter({
   value,
   placeholder,
 }: Props) {
+  const { t } = useTranslations();
+
   return (
     <div className="w-full animate-appear z-50">
       <Textarea
@@ -21,7 +24,7 @@ export default function Converter({
         placeholder={placeholder}
         value={value}
         spellCheck={false}
-
+        aria-label={t("accessibility.textConverter")}
         className="resize-none custom-scrollbar transition-all bg-black border border-gray-800 p-2 rounded-md focus:outline-none focus:ring focus:border-purple-500 font-mono text-sm leading-6"
       />
     </div>
