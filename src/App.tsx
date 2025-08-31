@@ -4,11 +4,9 @@ import {
   ConversionControls,
   Converter,
   CopyText,
-  Footer,
-  Formats,
-  Header,
+  FormatLayout,
+  Formats
 } from "./components";
-import { Toaster } from "./components/ui/sonner";
 import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
 import { useTranslations } from "./hooks/useTranslations";
 import { ConversionKeys } from "./types/convert.types";
@@ -40,7 +38,9 @@ function App() {
 
       const conversionKey = `${fromFormat}-${toFormat}` as ConversionKeys;
       const conversionFunction = conversionMap[conversionKey];
-      if (conversionFunction) setOutput(conversionFunction());
+      if (conversionFunction) {
+        setOutput(conversionFunction());
+      }
     } catch (error) {
       console.error(error);
       if (error instanceof SyntaxError || error instanceof Error) {
@@ -58,8 +58,7 @@ function App() {
   };
 
   return (
-    <>
-      <Header />
+    <FormatLayout>
       <main
         className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-4 min-h-[calc(100vh-200px)] lg:flex-row lg:gap-10"
         aria-label={t("accessibility.main")}
@@ -122,9 +121,7 @@ function App() {
           </div>
         </section>
       </main>
-      <Footer />
-      <Toaster />
-    </>
+    </FormatLayout>
   );
 }
 
