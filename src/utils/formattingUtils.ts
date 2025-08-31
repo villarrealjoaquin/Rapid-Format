@@ -1,4 +1,4 @@
-import { ObjectType, Values } from "@/types/convert.types";
+import { ObjectType } from "@/types/convert.types";
 
 export const convertToJson = (dataToConvert: string): string => {
   if (!dataToConvert) return "{}";
@@ -140,9 +140,13 @@ export const formatInterfaceForDisplay = (
     .join("\n")}\n${closingSpaces}}`;
 };
 
-export function getTypeString(value: Values, depth: number): string {
-  const typeMapping: Record<string, (value: ObjectType) => string> = {
-    string: () => "string",
+export function getTypeString<T extends object>(value: T, depth: number): string {
+  const typeMapping: Record<string, (value: T) => string> = {
+    string: (value) => {
+      if (typeof value !== "string") return "";
+      if (value === "date") return "Date";
+      return "string";
+    },
     number: () => "number",
     boolean: () => "boolean",
     object: (value) => {
@@ -159,7 +163,7 @@ export function getTypeString(value: Values, depth: number): string {
       return formatInterfaceForDisplay(value, depth);
     },
   };
-  return typeMapping[typeof value](value as ObjectType);
+  return typeMapping[typeof value](value as T);
 }
 
 export const serializator = (dataToConvert: string): string => {
