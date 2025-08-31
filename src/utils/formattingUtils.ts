@@ -1,4 +1,4 @@
-import { ObjectType, Values } from "@/types/convert.types";
+import { ObjectType } from "@/types/convert.types";
 
 export const convertToJson = (dataToConvert: string): string => {
   if (!dataToConvert) return "{}";
@@ -53,8 +53,19 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
   return Object.entries(obj)
     .map(([key, value]) => {
       if (Array.isArray(value)) {
-        const arrayString = `[${value.map((item) => `"${item}"`).join(", ")}]`;
-        return `${spaces}${key}: ${arrayString}`;
+        const formatArray = `[${value.map((item) => {
+          if (Array.isArray(item)) {
+            return `${formatArrayForDisplay(item, depth)}`;
+          }
+
+          if (typeof item === "object" && item !== null) {
+            const itemSpaces = " ".repeat(depth + 2);
+            return `\n${itemSpaces}{\n${formatObjectForDisplay(item, depth + 1)}\n${itemSpaces}}`;
+          }
+
+          return `${item}`
+        }).join(", ")}]`;
+        return `${spaces}${key}: ${formatArray}`;
       }
       if (typeof value === "object" && value !== null) {
         return `${spaces}${key}: {\n${formatObjectForDisplay(
@@ -62,11 +73,33 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
           depth + 1
         )}\n${spaces}}`;
       }
-      return `${spaces}${key}: ${
-        typeof value === "string" ? '"' + value + '"' : value
-      }`;
+      return `${spaces}${key}: ${typeof value === "string" ? '"' + value + '"' : value
+        }`;
     })
     .join(",\n");
+}
+
+function formatArrayForDisplay<T extends object>(arr: T[], depth: number): string {
+  const spaces = "  ".repeat(depth);
+  const innerSpaces = "  ".repeat(depth + 1);
+
+  if (arr.every(item => typeof item !== "object" || item === null)) {
+    return `[${arr.map(item => JSON.stringify(item)).join(", ")}]`;
+  }
+
+  const items = arr
+    .map(item => {
+      if (Array.isArray(item)) {
+        return `\n${innerSpaces}${formatArrayForDisplay(item, depth + 1)}`;
+      }
+      if (typeof item === "object" && item !== null) {
+        return `\n${innerSpaces}{\n${formatObjectForDisplay(item, depth + 2)}\n${innerSpaces}}`;
+      }
+      return `\n${innerSpaces}${JSON.stringify(item)}`;
+    })
+    .join(", ");
+
+  return `\n${spaces}[${items}\n${spaces}]`;
 }
 
 export const convertToInterface = (dataToConvert: string): string => {
@@ -107,9 +140,13 @@ export const formatInterfaceForDisplay = (
     .join("\n")}\n${closingSpaces}}`;
 };
 
-export function getTypeString(value: Values, depth: number): string {
-  const typeMapping: Record<string, (value: ObjectType) => string> = {
-    string: () => "string",
+export function getTypeString<T extends object>(value: T, depth: number): string {
+  const typeMapping: Record<string, (value: T) => string> = {
+    string: (value) => {
+      if (typeof value !== "string") return "";
+      if (value === "date") return "Date";
+      return "string";
+    },
     number: () => "number",
     boolean: () => "boolean",
     object: (value) => {
@@ -126,7 +163,7 @@ export function getTypeString(value: Values, depth: number): string {
       return formatInterfaceForDisplay(value, depth);
     },
   };
-  return typeMapping[typeof value](value as ObjectType);
+  return typeMapping[typeof value](value as T);
 }
 
 export const serializator = (dataToConvert: string): string => {
