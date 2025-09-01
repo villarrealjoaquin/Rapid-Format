@@ -63,7 +63,7 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
             return `\n${itemSpaces}{\n${formatObjectForDisplay(item, depth + 1)}\n${itemSpaces}}`;
           }
 
-          return `${item}`
+          return `"${item}"`
         }).join(", ")}]`;
         return `${spaces}${key}: ${formatArray}`;
       }
