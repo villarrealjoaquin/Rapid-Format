@@ -1,4 +1,4 @@
-import { ObjectType } from "@/types/convert.types";
+import { ObjectType, TypeExpr } from "@/types/convert.types";
 
 export const convertToJson = (dataToConvert: string): string => {
   if (!dataToConvert) return "{}";
@@ -53,18 +53,23 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
   return Object.entries(obj)
     .map(([key, value]) => {
       if (Array.isArray(value)) {
-        const formatArray = `[${value.map((item) => {
-          if (Array.isArray(item)) {
-            return `${formatArrayForDisplay(item, depth)}`;
-          }
+        const formatArray = `[${value
+          .map((item) => {
+            if (Array.isArray(item)) {
+              return `${formatArrayForDisplay(item, depth)}`;
+            }
 
-          if (typeof item === "object" && item !== null) {
-            const itemSpaces = " ".repeat(depth + 2);
-            return `\n${itemSpaces}{\n${formatObjectForDisplay(item, depth + 1)}\n${itemSpaces}}`;
-          }
+            if (typeof item === "object" && item !== null) {
+              const itemSpaces = " ".repeat(depth + 2);
+              return `\n${itemSpaces}{\n${formatObjectForDisplay(
+                item,
+                depth + 1
+              )}\n${itemSpaces}}`;
+            }
 
-          return `"${item}"`
-        }).join(", ")}]`;
+            return `"${item}"`;
+          })
+          .join(", ")}]`;
         return `${spaces}${key}: ${formatArray}`;
       }
       if (typeof value === "object" && value !== null) {
@@ -73,27 +78,34 @@ export function formatObjectForDisplay(obj: ObjectType, depth = 1): string {
           depth + 1
         )}\n${spaces}}`;
       }
-      return `${spaces}${key}: ${typeof value === "string" ? '"' + value + '"' : value
-        }`;
+      return `${spaces}${key}: ${
+        typeof value === "string" ? '"' + value + '"' : value
+      }`;
     })
     .join(",\n");
 }
 
-function formatArrayForDisplay<T extends object>(arr: T[], depth: number): string {
+function formatArrayForDisplay<T extends object>(
+  arr: T[],
+  depth: number
+): string {
   const spaces = "  ".repeat(depth);
   const innerSpaces = "  ".repeat(depth + 1);
 
-  if (arr.every(item => typeof item !== "object" || item === null)) {
-    return `[${arr.map(item => JSON.stringify(item)).join(", ")}]`;
+  if (arr.every((item) => typeof item !== "object" || item === null)) {
+    return `[${arr.map((item) => JSON.stringify(item)).join(", ")}]`;
   }
 
   const items = arr
-    .map(item => {
+    .map((item) => {
       if (Array.isArray(item)) {
         return `\n${innerSpaces}${formatArrayForDisplay(item, depth + 1)}`;
       }
       if (typeof item === "object" && item !== null) {
-        return `\n${innerSpaces}{\n${formatObjectForDisplay(item, depth + 2)}\n${innerSpaces}}`;
+        return `\n${innerSpaces}{\n${formatObjectForDisplay(
+          item,
+          depth + 2
+        )}\n${innerSpaces}}`;
       }
       return `\n${innerSpaces}${JSON.stringify(item)}`;
     })
@@ -122,48 +134,124 @@ export const convertToInterface = (dataToConvert: string): string => {
   return interfaceString.replace(/,(\n)/g, ";$1");
 };
 
+const ANY: TypeExpr = { kind: "any" };
+
+function inferType(v: unknown): TypeExpr {
+  if (v === undefined) return { kind: "undefined" };
+  if (v === null) return { kind: "null" };
+  const t = typeof v;
+  if (t === "string") return { kind: "string" };
+  if (t === "number") return { kind: "number" };
+  if (t === "boolean") return { kind: "boolean" };
+
+  if (Array.isArray(v)) {
+    let elem: TypeExpr | null = null;
+    for (const x of v) {
+      elem = elem ? unionType(elem, inferType(x)) : inferType(x);
+    }
+    return { kind: "array", elem: elem ?? ANY };
+  }
+
+  if (t === "object") {
+    const props: Record<string, TypeExpr> = {};
+    const optional = new Set<string>();
+    for (const [k, val] of Object.entries(v as object)) {
+      props[k] = inferType(val);
+    }
+    return { kind: "object", props, optional };
+  }
+
+  return ANY;
+}
+
+function unionType(a: TypeExpr, b: TypeExpr): TypeExpr {
+  if (a.kind === "any" || b.kind === "any") return ANY;
+
+  const flatten = (t: TypeExpr): TypeExpr[] =>
+    t.kind === "union" ? t.types.flatMap(flatten) : [t];
+
+  if (a.kind === "object" && b.kind === "object") {
+    const keys = new Set([...Object.keys(a.props), ...Object.keys(b.props)]);
+    const props: Record<string, TypeExpr> = {};
+    const optional = new Set<string>([...a.optional, ...b.optional]);
+
+    for (const k of keys) {
+      const ta = a.props[k];
+      const tb = b.props[k];
+      if (ta && tb) {
+        props[k] = unionType(ta, tb);
+      } else {
+        props[k] = (ta ?? tb)!;
+        optional.add(k);
+      }
+    }
+    return { kind: "object", props, optional };
+  }
+
+  if (a.kind === "array" && b.kind === "array") {
+    return { kind: "array", elem: unionType(a.elem, b.elem) };
+  }
+
+  if (JSON.stringify(a) === JSON.stringify(b)) return a;
+
+  const items = [...flatten(a), ...flatten(b)];
+  const uniq = Array.from(
+    new Map(items.map((t) => [JSON.stringify(t), t])).values()
+  );
+
+  return uniq.length === 1 ? uniq[0] : { kind: "union", types: uniq };
+}
+
+function typeToString(t: TypeExpr, depth = 1): string {
+  const sp = (n: number) => "  ".repeat(n);
+
+  switch (t.kind) {
+    case "any":
+    case "null":
+    case "undefined":
+    case "boolean":
+    case "number":
+    case "string":
+      return t.kind;
+    case "array": {
+      const elemStr = typeToString(t.elem, depth);
+      return t.elem.kind === "union" ? `(${elemStr})[]` : `${elemStr}[]`;
+    }
+    case "object": {
+      const entries = Object.entries(t.props);
+      if (entries.length === 0) return "{}";
+      const inner = entries
+        .map(
+          ([k, v]) =>
+            `${sp(depth)}${k}${t.optional.has(k) ? "?" : ""}: ${typeToString(
+              v,
+              depth + 1
+            )};`
+        )
+        .join("\n");
+      return `{\n${inner}\n${sp(depth - 1)}}`;
+    }
+    case "union":
+      return t.types.map((x) => typeToString(x, depth)).join(" | ");
+  }
+}
+
+
 export const formatInterfaceForDisplay = (
   obj: ObjectType,
   depth = 1
 ): string => {
-  const spaces = "  ".repeat(depth);
-  const closingSpaces = depth > 1 ? "  ".repeat(depth - 1) : "";
-  const entries = Object.entries(obj);
-  return `{\n${entries
-    .map(([key, value], index) => {
-      const type = getTypeString(value, depth + 1);
-      const formattedKey = key.includes(" ") ? `"${key}"` : key;
-      const isLast = index === entries.length - 1;
-      const punctuation = isLast ? ";" : ",";
-      return `${spaces}${formattedKey}: ${type}${punctuation}`;
-    })
-    .join("\n")}\n${closingSpaces}}`;
+  const t = inferType(obj);
+
+  return typeToString(t, depth);
 };
 
-export function getTypeString<T extends object>(value: T, depth: number): string {
-  const typeMapping: Record<string, (value: T) => string> = {
-    string: (value) => {
-      if (typeof value !== "string") return "";
-      if (value === "date") return "Date";
-      return "string";
-    },
-    number: () => "number",
-    boolean: () => "boolean",
-    object: (value) => {
-      if (Array.isArray(value)) {
-        if (value.length === 0) return "any[]";
-        return `${getTypeString(value[0], depth)}[]`;
-      }
-      if (value === null) {
-        return "null";
-      }
-      if (typeof value === "function") {
-        return "string";
-      }
-      return formatInterfaceForDisplay(value, depth);
-    },
-  };
-  return typeMapping[typeof value](value as T);
+
+export function getTypeString<T extends object>(
+  value: T,
+  depth: number
+): string {
+  return typeToString(inferType(value), depth);
 }
 
 export const serializator = (dataToConvert: string): string => {
