@@ -11,4 +11,4 @@ export * from "./ui/button";
 export * from "./ui/dialog";
 export * from "./ui/select";
 export * from "./ui/textarea";
-
+export { default as FormatLayout } from "./FormatLayout"

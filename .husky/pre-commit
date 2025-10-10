@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+echo "🔨 Running build..."
+npm run build
+
+echo "🧪 Running tests..."
+npm run test
+
+echo "✅ Pre-commit checks passed!"

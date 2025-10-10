@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslations } from "../../hooks/useTranslations";
 import RenderFormat from "../RenderFormat/RenderFormat";
 
 interface Props {
@@ -19,26 +20,40 @@ export default function Formats({
   lists,
   excludeFormat,
 }: Props) {
+  const { t } = useTranslations();
   const filteredLists = lists.filter((format) => format !== excludeFormat);
 
   return (
-    <>
-      <Select onValueChange={onValueChange}>
-        <SelectTrigger className="w-[180px] bg-[#09090B] border-none">
-          <SelectValue placeholder="Selecciona el formato" />
-        </SelectTrigger>
-        <SelectContent className="bg-[#09090B] text-white">
-          <SelectGroup>
-            <RenderFormat
-              list={filteredLists}
-              renderList={(item) => (
-                <SelectItem value={item}>{item}</SelectItem>
-              )}
-              extractId={(item) => item}
-            />
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    </>
+    <Select onValueChange={onValueChange}>
+      <SelectTrigger
+        className="w-[200px] bg-[#09090B] border-none"
+        aria-label={t("formats.selectFormat")}
+        aria-describedby="format-description"
+      >
+        <SelectValue placeholder={t("formats.title")} />
+      </SelectTrigger>
+      <SelectContent className="bg-[#09090B] text-white">
+        <SelectGroup>
+          <RenderFormat
+            list={filteredLists}
+            renderList={(item) => (
+              <SelectItem
+                value={item}
+                aria-label={`${t("formats.title")}: ${item}`}
+              >
+                {item}
+              </SelectItem>
+            )}
+            extractId={(item) => item}
+          />
+        </SelectGroup>
+      </SelectContent>
+      <div id="format-description" className="sr-only">
+        {t("formats.selectFormat")}. {filteredLists.length}{" "}
+        {filteredLists.length === 1
+          ? t("formats.formatAvailable")
+          : t("formats.formatsAvailable")}
+      </div>
+    </Select>
   );
 }

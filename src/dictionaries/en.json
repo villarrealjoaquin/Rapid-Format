@@ -1,0 +1,56 @@
+{
+  "converter": {
+    "inputPlaceholder": "Paste your format here...",
+    "copyButton": "Copy",
+    "deleteButton": "Delete output",
+    "copyButtonDisabled": "Copy button disabled: no content to copy",
+    "deleteButtonDisabled": "Delete button disabled: no content to delete",
+    "copySuccess": "Content copied to clipboard",
+    "outputActions": "Output actions"
+  },
+  "formats": {
+    "title": "Output format",
+    "selectFormat": "Select output format",
+    "formatSelector": "Format selector",
+    "formatAvailable": "format available",
+    "formatsAvailable": "formats available"
+  },
+  "combinations": {
+    "title": "combinations"
+  },
+  "help": {
+    "title": "Help",
+    "howToUse": "How to use",
+    "step1": "Select the desired output format",
+    "step2": "Paste your text in the input area",
+    "step3": "Wait a second'",
+    "step4": "Copy the result",
+    "openDialog": "Open help dialog",
+    "dialogDescription": "Instructions on how to use the format conversion tool"
+  },
+  "errors": {
+    "conversionError": "Error in the input format, make sure the data is correct."
+  },
+  "accessibility": {
+    "main": "Format conversion tool",
+    "inputSection": "Input format section",
+    "outputSection": "Output format section",
+    "conversionControls": "Conversion controls",
+    "formatSelector": "Format selector",
+    "textConverter": "Text converter",
+    "convertUnavailable": "Conversion unavailable",
+    "reason": {
+      "selectFormats": "Please select input and output formats",
+      "sameFormats": "Input and output formats must be different"
+    }
+  },
+  "actions": {
+    "convert": "Convert formats"
+  },
+  "header": {
+    "logo": "Rapid Format logo",
+    "support": "Support us",
+    "github": "View on GitHub",
+    "opensInNewTab": "(opens in new tab)"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "converter": {
+    "inputPlaceholder": "Pega tu formato aquí...",
+    "copyButton": "Copiar",
+    "deleteButton": "Eliminar salida",
+    "copyButtonDisabled": "Botón de copia deshabilitado: no hay contenido para copiar",
+    "deleteButtonDisabled": "Botón de eliminación deshabilitado: no hay contenido para eliminar",
+    "copySuccess": "Contenido copiado al portapapeles",
+    "outputActions": "Acciones de salida"
+  },
+  "formats": {
+    "title": "Formato de salida",
+    "selectFormat": "Seleccionar formato de salida",
+    "formatSelector": "Selector de formato",
+    "formatAvailable": "formato disponible",
+    "formatsAvailable": "formatos disponibles"
+  },
+  "combinations": {
+    "title": "combinaciones"
+  },
+  "help": {
+    "title": "Ayuda",
+    "howToUse": "Cómo usar",
+    "step1": "Selecciona el formato de salida deseado",
+    "step2": "Pega tu texto en el área de entrada",
+    "step3": "Espera un segundo",
+    "step4": "Copia el resultado",
+    "openDialog": "Abrir diálogo de ayuda",
+    "dialogDescription": "Instrucciones sobre cómo usar la herramienta de conversión de formatos"
+  },
+  "errors": {
+    "conversionError": "Error en el formato de entrada, asegúrate de que los datos son correctos."
+  },
+  "accessibility": {
+    "main": "Herramienta de conversión de formatos",
+    "inputSection": "Sección de formato de entrada",
+    "outputSection": "Sección de formato de salida",
+    "conversionControls": "Controles de conversión",
+    "formatSelector": "Selector de formato",
+    "textConverter": "Convertidor de texto",
+    "convertUnavailable": "Conversión no disponible",
+    "reason": {
+      "selectFormats": "Por favor selecciona formatos de entrada y salida",
+      "sameFormats": "Los formatos de entrada y salida deben ser diferentes"
+    }
+  },
+  "actions": {
+    "convert": "Convertir formatos"
+  },
+  "header": {
+    "siteHeader": "Encabezado del sitio",
+    "logo": "Logo de Rapid Format",
+    "support": "Apoyanos",
+    "github": "Ver en GitHub",
+    "opensInNewTab": "(se abre en nueva pestaña)"
+  }
+}
