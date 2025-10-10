@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import {
-  ConversionControls,
+  AppSidebar,
   Converter,
   CopyText,
-  Footer,
-  Formats,
-  Header,
+  Header
 } from "./components";
+import { SidebarProvider } from "./components/ui/sidebar";
 import { Toaster } from "./components/ui/sonner";
-import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
 import {
   convertToInterface,
   convertToJson,
@@ -55,51 +53,62 @@ function App() {
   };
 
   return (
-    <>
-      <Header />
-      <main className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-10 min-h-[calc(100vh-200px)] lg:flex-row lg:mt-0 lg:gap-10">
-        <article className="flex flex-col gap-3">
-          <Formats
-            onValueChange={setFromFormat}
-            lists={INPUT_ALL_FORMATS}
-            excludeFormat={toFormat}
-          />
-          <Converter
-            onQueryChange={handleQueryChange}
-            placeholder="Copia tu formato..."
-            value={dataToConvert}
-          />
-        </article>
-        <article className="p-10 z-50 lg:p-0">
-          <ConversionControls
-            fromFormat={fromFormat}
-            toFormat={toFormat}
-            onConvertClick={processFormat}
-            isEqual={isEqual}
-          />
-        </article>
-        <article className="flex flex-col gap-3">
-          <div className="flex gap-3 justify-between">
-            <Formats
-              onValueChange={setToFormat}
-              lists={OUTPUT_ALL_FORMATS}
-              excludeFormat={fromFormat}
-            />
-            <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
+    <SidebarProvider>
+      <div className="flex flex-col w-full h-screen overflow-hidden">
+        <Header />
+        <div className="flex flex-1 overflow-hidden">
+          <AppSidebar />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <main className="flex-1 overflow-auto w-full p-4 md:p-6">
+              <div className="max-w-7xl mx-auto h-full flex flex-col lg:flex-row gap-4 lg:gap-6 items-start">
+                <article className="flex flex-col gap-3 flex-1 min-w-0 w-full lg:w-auto">
+                  {/* <Formats
+                    onValueChange={setFromFormat}
+                    lists={INPUT_ALL_FORMATS}
+                    excludeFormat={toFormat}
+                  /> */}
+                  <div className="h-10 hidden lg:block"></div>
+                  <div className="flex-1 min-h-[300px] lg:min-h-0 z-50">
+                    <Converter
+                      onQueryChange={handleQueryChange}
+                      placeholder="Copia tu formato..."
+                      value={dataToConvert}
+                    />
+                  </div>
+                </article>
+                {/* <article className="flex justify-end">
+                  <ConversionControls
+                    fromFormat={fromFormat}
+                    toFormat={toFormat}
+                    onConvertClick={processFormat}
+                    isEqual={isEqual}
+                  />
+                </article> */}
+                <article className="flex flex-col gap-3 flex-1 min-w-0 w-full lg:w-auto">
+                  <div className="flex gap-3 justify-end h-10">
+                    {/* <Formats
+                      onValueChange={setToFormat}
+                      lists={OUTPUT_ALL_FORMATS}
+                      excludeFormat={fromFormat}
+                    /> */}
+                    <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
+                  </div>
+                  <div className="flex-1 min-h-[300px] lg:min-h-0 z-50">
+                    <Converter
+                      key={output}
+                      onQueryChange={handleQueryChange}
+                      readonly={true}
+                      value={output}
+                    />
+                  </div>
+                </article>
+              </div>
+            </main>
           </div>
-          <div className="z-50">
-            <Converter
-              key={output}
-              onQueryChange={handleQueryChange}
-              readonly={true}
-              value={output}
-            />
-          </div>
-        </article>
-      </main>
-      <Footer />
+        </div>
+      </div>
       <Toaster />
-    </>
+    </SidebarProvider>
   );
 }
 
