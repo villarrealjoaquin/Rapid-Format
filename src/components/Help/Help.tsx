@@ -40,7 +40,7 @@ export default function Help() {
             {t("help.dialogDescription")}
           </p>
         </DialogHeader>
-        <main className="space-y-4">
+        <div className="space-y-4">
           <section
             className="bg-purple-50 p-4 rounded-lg border border-purple-600"
             aria-labelledby="instructions-heading"
@@ -58,7 +58,7 @@ export default function Help() {
               <li>{t("help.step4")}</li>
             </ol>
           </section>
-        </main>
+        </div>
       </DialogContent>
     </Dialog>
   );

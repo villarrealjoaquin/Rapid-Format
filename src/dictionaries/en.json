@@ -16,29 +16,17 @@
     "formatsAvailable": "formats available"
   },
   "combinations": {
-    "title": "Possible combinations",
-    "objectToJsonDesc": "Convert JavaScript objects to JSON format",
-    "objectToInterfaceDesc": "Generate TypeScript interfaces from objects",
-    "jsonToObjectDesc": "Transform JSON to JavaScript objects",
-    "jsonToInterfaceDesc": "Create TypeScript interfaces from JSON",
-    "openDialog": "Open conversion combinations dialog",
-    "dialogDescription": "Available format conversion combinations",
-    "conversionList": "List of available format conversions"
+    "title": "combinations"
   },
   "help": {
     "title": "Help",
     "howToUse": "How to use",
-    "step1": "Paste your text in the input area",
-    "step2": "Select the desired output format",
-    "step3": "Click 'Convert'",
+    "step1": "Select the desired output format",
+    "step2": "Paste your text in the input area",
+    "step3": "Wait a second'",
     "step4": "Copy the result",
     "openDialog": "Open help dialog",
     "dialogDescription": "Instructions on how to use the format conversion tool"
-  },
-  "footer": {
-    "like": "Do you like this project?",
-    "github": "View on GitHub",
-    "opensInNewTab": "(opens in new tab)"
   },
   "errors": {
     "conversionError": "Error in the input format, make sure the data is correct."
@@ -60,6 +48,9 @@
     "convert": "Convert formats"
   },
   "header": {
-    "logo": "Rapid Format logo"
+    "logo": "Rapid Format logo",
+    "support": "Support us",
+    "github": "View on GitHub",
+    "opensInNewTab": "(opens in new tab)"
   }
 }

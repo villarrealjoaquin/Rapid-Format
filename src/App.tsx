@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import {
-  ConversionControls,
   Converter,
   CopyText,
-  FormatLayout,
-  Formats
+  FormatLayout
 } from "./components";
-import { INPUT_ALL_FORMATS, OUTPUT_ALL_FORMATS } from "./constants";
 import { useTranslations } from "./hooks/useTranslations";
 import { ConversionKeys } from "./types/convert.types";
 import {
@@ -60,21 +57,22 @@ function App() {
   return (
     <FormatLayout>
       <main
-        className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center mt-4 min-h-[calc(100vh-200px)] lg:flex-row lg:gap-10"
+        className="w-full flex flex-col flex-wrap whitespace-pre-wrap items-center justify-center gap-6 px-6 pb-10 xl:pt-12 lg:flex-row"
         aria-label={t("accessibility.main")}
         role="main"
       >
         <section
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-3 w-full max-w-[550px]"
           aria-label={t("accessibility.inputSection")}
         >
-          <div className="z-50" aria-label={t("accessibility.formatSelector")}>
+          {/* <div className="z-50" aria-label={t("accessibility.formatSelector")}>
             <Formats
               onValueChange={setFromFormat}
               lists={INPUT_ALL_FORMATS}
               excludeFormat={toFormat}
             />
-          </div>
+          </div> */}
+          <div className="h-10"></div>
           <div className="z-50" aria-label={t("accessibility.textConverter")}>
             <Converter
               onQueryChange={handleQueryChange}
@@ -83,8 +81,8 @@ function App() {
             />
           </div>
         </section>
-        <section
-          className="p-10 z-50 lg:p-0"
+        {/* <section
+          className="p-3 z-50 lg:p-0"
           aria-label={t("accessibility.conversionControls")}
         >
           <ConversionControls
@@ -93,13 +91,13 @@ function App() {
             onConvertClick={processFormat}
             isEqual={isEqual}
           />
-        </section>
+        </section> */}
         <section
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-3 w-full max-w-[550px]"
           aria-label={t("accessibility.outputSection")}
         >
-          <div className="flex gap-3 justify-between">
-            <div
+          <div className="flex gap-3 justify-end">
+            {/* <div
               className="z-50"
               aria-label={t("accessibility.formatSelector")}
             >
@@ -108,7 +106,7 @@ function App() {
                 lists={OUTPUT_ALL_FORMATS}
                 excludeFormat={fromFormat}
               />
-            </div>
+            </div> */}
             <CopyText text={output} onDeleteOutput={handleDeleteOutput} />
           </div>
           <div className="z-50" aria-label={t("accessibility.textConverter")}>

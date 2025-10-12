@@ -17,7 +17,7 @@ export default function Converter({
   const { t } = useTranslations();
 
   return (
-    <div className="w-full animate-appear z-50">
+    <div className="w-full animate-appear">
       <Textarea
         onChange={onQueryChange}
         readOnly={readonly}
